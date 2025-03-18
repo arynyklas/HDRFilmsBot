@@ -1,0 +1,30 @@
+[project]
+name = "hdrfilmsbot"
+version = "1.0.0"
+description = "https://t.me/aryn_dev/94 | https://t.me/HDRFilmsBot"
+authors = [
+    {name = "Aryn Yklas", email = "arynyklas@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "aiogram (==3.18.0)",
+    "rezka-api-sdk (>=0.1.0,<0.2.0)",
+    "cryptography (==44.0.2)",
+    "pyjwt (==2.10.1)",
+    "telegram-bot-logger (==0.0.4.post0)",
+    "pyyaml (==6.0.2)",
+    "sqlalchemy (>=2.0.38,<3.0.0)",
+    "psycopg (>=3.2.5,<4.0.0)",
+    "psycopg-binary (>=3.2.5,<4.0.0)",
+    "psycopg-pool (>=3.2.6,<4.0.0)",
+    "alembic (>=1.15.1,<2.0.0)",
+    "cachetools (>=5.5.2,<6.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false

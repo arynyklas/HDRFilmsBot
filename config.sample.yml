@@ -1,0 +1,29 @@
+bot_token: ...
+logger_name: ...
+logs_chat_id: ...
+logger_chat_level: WARNING
+logger_file_level: DEBUG
+admins:
+  - ...
+db_url: postgresql+psycopg://postgres@localhost/...
+users_messages_per_second: 5
+rezka_api_url: null
+rezka_api_key: ...
+private_key_filename: rezka_static_private.pem
+external_player_url: https://static.sek.su/rezka/
+log_filename: test.log.txt
+custom_bot_api_server: http://localhost:9998
+subscription:
+  price: 1
+  days: 90
+  currency: XTR
+downloads_temp_dirpath: /tmp/test_files/
+max_file_upload_size: 2097152000  # 2000 MB
+track_series_checker_delay: 3600
+track_series_checker_per_message_delay: 0.04
+track_series_checker_per_delay: 10
+download_items_queue_per_message_delay: 0.04
+download_items_queue_to_chat_id: ...
+inline_query_cache_time: 10800
+cache_rezka_data_time: 3600
+cache_rezka_short_info_time: 10800
