@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
-from typing_extensions import Self
-
 from rezka_api_sdk.models import DirectURLsModel
+from typing_extensions import Self
 
 
 class CachedRezkaData(BaseModel):

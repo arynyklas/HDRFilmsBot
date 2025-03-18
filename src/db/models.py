@@ -2,8 +2,6 @@ from sqlalchemy import (
     BigInteger,
     Integer,
     ForeignKey,
-    # String,
-    # Enum,
 )
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import relationship, Mapped, mapped_column
@@ -70,9 +68,6 @@ class DownloadItemQueue(BaseModel):
     user_tg_ids: Mapped[list[int]] = mapped_column(ARRAY(BigInteger), nullable=False)
     user_tg_message_ids: Mapped[list[int]] = mapped_column(ARRAY(Integer), nullable=False)
     user_tg_reply_message_ids: Mapped[list[int]] = mapped_column(ARRAY(Integer), nullable=False)
-    # user_tg_ids: Mapped[list[int]] = mapped_column(BigInteger, nullable=False)
-    # user_tg_message_ids: Mapped[list[int]] = mapped_column(nullable=False)
-    # user_tg_reply_message_ids: Mapped[list[int]] = mapped_column(nullable=False)
 
 
 class DownloadedItem(BaseModel):
@@ -100,8 +95,6 @@ class TrackSeries(BaseModel):
     translator_id: Mapped[str] = mapped_column(index=True, nullable=False)
     translator_title: Mapped[str] = mapped_column(nullable=False)
     translator_additional_arguments: Mapped[dict[str, str]] = mapped_column(JSONB, nullable=False)
-    # user_tg_ids: Mapped[list[int]] = mapped_column(BigInteger, nullable=False)
-    # user_tg_message_ids: Mapped[list[int]] = mapped_column(nullable=False)
     user_tg_ids: Mapped[list[int]] = mapped_column(ARRAY(BigInteger), nullable=False)
     user_tg_message_ids: Mapped[list[int]] = mapped_column(ARRAY(Integer), nullable=False)
     last_season_id: Mapped[str] = mapped_column(default=None, nullable=True)

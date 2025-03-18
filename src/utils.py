@@ -142,7 +142,7 @@ def extract_translator_from_buttons_message(message: types.Message) -> str:
     return result.group(1)
 
 def extract_series_data_from_message(message: types.Message) -> tuple[str, str]:
-    text = typing.cast(str, message.text)
+    text: str = message.text  # type: ignore
 
     result = constants.SERIES_DATA_PATTERN.search(text)
 
