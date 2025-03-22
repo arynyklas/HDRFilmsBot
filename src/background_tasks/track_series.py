@@ -181,6 +181,9 @@ async def db_track_series_checker(
 
                             continue
 
+                        if last_season_id not in got_cached_rezka_data.seasons or last_season_id not in got_cached_rezka_data.episodes:
+                            continue
+
                         subupdates: list[str] = []
 
                         raw_seasons_data = got_cached_rezka_data.seasons

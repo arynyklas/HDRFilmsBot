@@ -16,16 +16,16 @@ from src.handlers import ROUTERS
 from src.config import config
 
 
-IGNORE_EXCEPTIONS_STR_LIST = [
+IGNORE_EXCEPTIONS_STR_LIST = (
     "message was deleted",
     "canceled by new editmessagemedia request",
-    "query is too old"
-]
+    "query is too old",
+)
 
-IGNORE_EXCEPTIONS_LIST = [
+IGNORE_EXCEPTIONS_LIST = (
     asyncio.CancelledError,
     ServerDisconnectedError,
-]
+)
 
 
 dispatcher = Dispatcher()

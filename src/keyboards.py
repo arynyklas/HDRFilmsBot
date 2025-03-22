@@ -71,9 +71,7 @@ def direct_urls(
                     for quality, direct_url in direct_urls_.items()
                 ]
                 for direct_urls_ in utils.dict_chunker(
-                    dict(reversed(
-                        utils.sort_direct_urls(direct_urls).items()
-                    )),
+                    utils.sort_direct_urls(direct_urls),
                     DIRECT_URLS_CHUNK_SIZE
                 )
             ]

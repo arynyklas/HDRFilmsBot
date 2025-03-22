@@ -20,6 +20,7 @@ SLEEP_TIME = 3.
 DOWNLOAD_EDIT_PROGRESS_DELAY = 1.5
 FILE_NAME_CONSTUCTOR = "item_{}_{}.mp4"
 FILE_CHECK_RESOLUTION_MAX_READ_SIZE = 1024 * 1024 * 1  # 1 MB
+SEND_VIDEO_TIMEOUT = 60 * 5  # 5 minutes
 
 http_client = AsyncClient(
     follow_redirects = True
@@ -151,7 +152,7 @@ async def _db_session_worker(
 
         return
 
-    for quality, direct_url in reversed(got_cached_rezka_data.urls.items()):
+    for quality, direct_url in utils.sort_direct_urls(got_cached_rezka_data.urls).items():
         if await determine_content_length_by_url(direct_url) < config.max_file_upload_size:
             selected_quality = quality
             selected_direct_url = direct_url
@@ -249,7 +250,8 @@ async def _db_session_worker(
                 else
                 ""
             )
-        )
+        ),
+        request_timeout = SEND_VIDEO_TIMEOUT
     )
 
     video_file_id = bot_video_message.video.file_id  # type: ignore

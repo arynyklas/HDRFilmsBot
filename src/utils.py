@@ -79,15 +79,12 @@ def dict_chunker(collection: dict[K, V], n: int) -> list[dict[K, V]]:
     ]
 
 
-def sort_direct_urls(direct_urls: dict[str, str]) -> dict[str, str]:
+def sort_direct_urls(direct_urls: dict[str, str], reverse: bool=False) -> dict[str, str]:
     return dict(sorted(
         direct_urls.items(),
-        key = lambda item: int(extract_digits_from_string(item[0]))
+        key = lambda item: int(extract_digits_from_string(item[0])),
+        reverse = not reverse
     ))
-
-
-def rezka_is_film_by_url(url: str) -> bool:
-    return urlparse(url).path.split("/")[1] == "films"
 
 
 def rezka_extract_id_from_url(url: str) -> str:
