@@ -48,7 +48,6 @@ async def db_track_series_checker(
 
         last_track_series_id: int | None = None
         has_next = True
-        notify_updates: list[tuple[str, list[str], list[int], list[int]]] = []
 
         async with db_sessionmaker() as db_session:
             await db_session.execute(
@@ -126,10 +125,11 @@ async def db_track_series_checker(
 
             await db_session.execute(update_stmt)
             await db_session.execute(delete_stmt)
-
             await db_session.commit()
 
             while has_next:
+                notify_updates: list[tuple[str, list[str], list[int], list[int]]] = []
+
                 db_track_series_list, has_next = await _get_track_series_by_cursor(
                     session = db_session,
                     last_id = last_track_series_id
@@ -284,8 +284,8 @@ async def db_track_series_checker(
                             pass
 
                         await asyncio.sleep(config.track_series_checker_per_message_delay)
-
-                if len(db_track_series_list) >= 1:
+                
+                if db_track_series_list:
                     last_track_series_id = db_track_series_list[-1].id
 
-            await asyncio.sleep(config.track_series_checker_per_delay)
+        await asyncio.sleep(config.track_series_checker_per_delay)
