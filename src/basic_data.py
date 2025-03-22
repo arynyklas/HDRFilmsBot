@@ -101,7 +101,7 @@ class TEXTS:
                     "В качестве <i>{quality}</i>"
                 )
 
-                series_test = "\nСезон: {season_id}, серия: {episode_id}\n"
+                series_test = "Сезон: {season_id}, серия: {episode_id}\n"
 
     class subscription:
         default = (
