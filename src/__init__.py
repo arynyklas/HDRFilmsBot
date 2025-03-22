@@ -136,9 +136,9 @@ async def on_startup() -> None:
 
     logger.info(f"Starting @{bot_username}...")
 
-    asyncio.create_task(background_tasks.db_track_series_checker(bot, db_sessionmaker, rezka_cache_data, logger))
-    asyncio.create_task(background_tasks.download_items_queue_worker(bot, db_sessionmaker, rezka_cache_data))
-    asyncio.create_task(background_tasks.cleanup_expired_cache_worker(rezka_cache_data, rezka_cache_short_info))
+    asyncio.create_task(utils.logger_wrapper(logger, background_tasks.db_track_series_checker(bot, db_sessionmaker, rezka_cache_data, logger)))
+    asyncio.create_task(utils.logger_wrapper(logger, background_tasks.download_items_queue_worker(bot, db_sessionmaker, rezka_cache_data)))
+    asyncio.create_task(utils.logger_wrapper(logger, background_tasks.cleanup_expired_cache_worker(rezka_cache_data, rezka_cache_short_info)))
 
 
 dispatcher_workflow: dict[str, typing.Any] = dict(
