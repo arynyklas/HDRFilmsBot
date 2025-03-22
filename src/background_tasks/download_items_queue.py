@@ -260,7 +260,6 @@ async def _db_session_worker(
         translator_id = db_download_item_queue.translator_id,
         translator_title = db_download_item_queue.translator_title,
         translator_additional_arguments = db_download_item_queue.translator_additional_arguments,
-        is_film = db_download_item_queue.is_film,
         season_id = db_download_item_queue.season_id,
         episode_id = db_download_item_queue.episode_id,
         quality = selected_quality,

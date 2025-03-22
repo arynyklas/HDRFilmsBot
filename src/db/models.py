@@ -31,7 +31,7 @@ class Subscription(BaseModel):
 
     id: Mapped[idpk] = mapped_column(init=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True, nullable=False)
-    payment_id: Mapped[int] = mapped_column(ForeignKey("payments.id"), index=True, nullable=True)
+    payment_id: Mapped[int | None] = mapped_column(ForeignKey("payments.id"), index=True, nullable=True)
     expiration_datetime: Mapped[datetime] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
     is_refunded: Mapped[bool] = mapped_column(default=False, nullable=False)
@@ -79,7 +79,6 @@ class DownloadedItem(BaseModel):
     translator_id: Mapped[str] = mapped_column(index=True, nullable=False)
     translator_title: Mapped[str] = mapped_column(nullable=False)
     translator_additional_arguments: Mapped[dict[str, str]] = mapped_column(JSONB, nullable=False)
-    is_film: Mapped[bool] = mapped_column(nullable=False)
     season_id: Mapped[str | None] = mapped_column(nullable=True)
     episode_id: Mapped[str | None] = mapped_column(nullable=True)
     quality: Mapped[str] = mapped_column(nullable=False)

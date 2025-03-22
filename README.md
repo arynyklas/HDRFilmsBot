@@ -30,6 +30,11 @@
     - Rename `alembic.sample.yml` to `alembic.ini`.
 5. Open `alembic.ini` and set the `sqlalchemy.url` to match your database configuration.
 6. Install project dependencies:
+    Optional, use virtual environment:
+    ```bash
+    poetry config virtualenvs.in-project true
+    ```
+
     ```bash
     poetry install
     ```

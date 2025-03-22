@@ -82,7 +82,8 @@ db_engine = create_db_engine(
 
 db_sessionmaker = db.DBSessionMaker(
     bind = db_engine,
-    expire_on_commit = False
+    expire_on_commit = False,
+    autoflush = False
 )
 
 
