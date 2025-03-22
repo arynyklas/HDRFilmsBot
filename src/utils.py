@@ -190,22 +190,6 @@ def get_external_player_url(
     return external_player_url + "#" + encrypt_utils.encrypt(external_data)
 
 
-# def logger_wrapper(logger: Logger) -> typing.Callable[[typing.Callable[..., typing.Awaitable[T]]], typing.Callable[..., typing.Awaitable[T | None]]]:
-#     def wrapper(func: typing.Callable[..., typing.Awaitable[T]]) -> typing.Callable[..., typing.Awaitable[T | None]]:
-#         async def inner(*args: typing.Any, **kwargs: typing.Any) -> T | None:
-#             try:
-#                 return await func(*args, **kwargs)
-
-#             except Exception as e:
-#                 logger.exception(e)
-
-#                 return None
-
-#         return inner
-
-#     return wrapper
-
-
 async def logger_wrapper(logger: Logger, coro: typing.Awaitable[T]) -> T | None:
     try:
         return await coro
