@@ -182,6 +182,8 @@ async def db_track_series_checker(
                             continue
 
                         if last_season_id not in got_cached_rezka_data.seasons or last_season_id not in got_cached_rezka_data.episodes:
+                            await asyncio.sleep(config.track_series_checker_per_delay)
+
                             continue
 
                         subupdates: list[str] = []
@@ -263,6 +265,8 @@ async def db_track_series_checker(
                                 db_track_series.user_tg_message_ids
                             ))
 
+                    await asyncio.sleep(config.track_series_checker_per_delay)
+
                 await db_session.commit()
 
                 for item_title, notify_updates_, user_tg_ids, user_tg_message_ids in notify_updates:
@@ -284,8 +288,6 @@ async def db_track_series_checker(
                             pass
 
                         await asyncio.sleep(config.track_series_checker_per_message_delay)
-                
+
                 if db_track_series_list:
                     last_track_series_id = db_track_series_list[-1].id
-
-        await asyncio.sleep(config.track_series_checker_per_delay)
