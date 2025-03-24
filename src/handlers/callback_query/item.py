@@ -4,7 +4,7 @@ import sqlalchemy as sa
 
 from src import db, utils, keyboards, constants
 from src.cache import AsyncTimedRezkaCacheData, AsyncTimedRezkaCacheShortInfo
-from src.basic_data import TEXTS
+from src.basic_data import TEXTS, KB_TEXTS
 from src.config import config
 from .update_translators import process_update_translators_callback_query
 
@@ -59,7 +59,7 @@ async def item_callback_query_handler(
 
     reply_to_message: types.Message = message.reply_to_message  # type: ignore
 
-    title, _ = utils.parse_item_message(reply_to_message)  # type: ignore
+    title, url = utils.parse_item_message(reply_to_message)  # type: ignore
 
     if len(args) == 3 or (len(args) == 4 and args[3] == "update"):
         translator_title_temp: str | None = None
@@ -68,15 +68,19 @@ async def item_callback_query_handler(
             translator_title_temp = utils.extract_translator_from_buttons_message(message)
 
         except Exception:
-            for row in message.reply_markup.inline_keyboard:  # type: ignore
-                for button in row:
-                    if button.callback_data == callback_query.data:
-                        translator_title_temp = button.text
+            pass
 
-                        break
+        if not translator_title_temp or translator_title_temp == KB_TEXTS.subscription.back:
+            _, translators = await rezka_cache_short_info.get_or_set(url)
+
+            for translator in translators:
+                if translator.id == translator_id:
+                    translator_title_temp = translator.title
+
+                    break
 
         if not translator_title_temp:
-            raise ValueError("Translator title not found")
+            raise RuntimeError("Translator title not found")
 
         translator_title = translator_title_temp
 
@@ -370,7 +374,25 @@ async def item_callback_query_handler(
         season_id = args[3]
         episode_id = args[4]
 
-        translator_title = utils.extract_translator_from_buttons_message(message)
+        translator_title: str | None = None
+
+        try:
+            translator_title = utils.extract_translator_from_buttons_message(message)
+
+        except Exception:
+            pass
+
+        if not translator_title or translator_title == KB_TEXTS.subscription.back:
+            _, translators = await rezka_cache_short_info.get_or_set(url)
+
+            for translator in translators:
+                if translator.id == translator_id:
+                    translator_title = translator.title
+
+                    break
+
+        if not translator_title:
+            raise RuntimeError("Translator title not found")
 
         got_cached_rezka_data = await rezka_cache_data.get_or_set(
             item_id = item_id,

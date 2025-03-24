@@ -10,7 +10,8 @@ async def user_has_active_subscription(
 ) -> bool:
     query = sa.select(sa.exists().where(
         models.Subscription.user_id == db_user.id,
-        models.Subscription.is_active == True  # noqa
+        models.Subscription.is_active == True,  # noqa
+        models.Subscription.expiration_datetime > sa.func.now()
     ))
 
     return (await db_session.execute(query)).scalar_one()
