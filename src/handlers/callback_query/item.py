@@ -469,9 +469,6 @@ async def item_callback_query_handler(
                 break
 
         if season_index is None or episode_index is None or not got_cached_rezka_data.urls:
-            print(f"SEASON_INDEX {season_index!r}")
-            print(f"EPISODE_INDEX {episode_index!r}")
-            print(f"GOT_CACHED_REZKA_DATA {got_cached_rezka_data!r}")
             await message.edit_text(
                 text = TEXTS.not_avaliable.default_with_translator.format(
                     translator = translator_title

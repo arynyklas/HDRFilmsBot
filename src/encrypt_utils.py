@@ -49,7 +49,6 @@ proxied_urls_key = hashlib.sha256(config.proxied_urls_secret.encode()).digest()
 
 def get_proxied_view_urls_params(data: dict[str, typing.Any]) -> str:
     plaintext = json.dumps(data)
-    print(plaintext)
     padder = crypt_padding.PKCS7(128).padder()
     padded = padder.update(plaintext.encode('utf-8')) + padder.finalize()
     iv = os.urandom(16)
