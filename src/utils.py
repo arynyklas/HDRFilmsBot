@@ -184,7 +184,7 @@ def get_external_player_url(
             "episode_title": episode_title
         })
 
-    return external_player_url + "#" + encrypt_utils.encrypt(external_data)
+    return external_player_url + "#" + encrypt_utils.encrypt_external_player_params(external_data)
 
 
 async def logger_wrapper(logger: Logger, coro: typing.Awaitable[T]) -> T | None:

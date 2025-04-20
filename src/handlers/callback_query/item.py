@@ -1,12 +1,36 @@
 from aiogram import types
+from urllib.parse import quote
 
 import sqlalchemy as sa
 
-from src import db, utils, keyboards, constants
+from src import db, encrypt_utils, utils, keyboards, constants
 from src.cache import AsyncTimedRezkaCacheData, AsyncTimedRezkaCacheShortInfo
 from src.basic_data import TEXTS, KB_TEXTS
 from src.config import config
 from .update_translators import process_update_translators_callback_query
+
+
+def _get_proxied_view_urls(
+    direct_urls: dict[str, str],
+    item_id: str,
+    translator_id: str,
+    translator_additional_arguments: dict[str, str],
+    is_film: bool,
+    season_id: str | None = None,
+    episode_id: str | None = None
+) -> dict[str, str]:
+    return {
+        quality: config.proxied_view_url + "?data=" + quote(encrypt_utils.get_proxied_view_urls_params(dict(
+            item_id = item_id,
+            translator_id = translator_id,
+            translator_additional_arguments = translator_additional_arguments,
+            is_film = is_film,
+            season_id = season_id,
+            episode_id = episode_id,
+            quality = quality
+        )))
+        for quality in direct_urls.keys()
+    }
 
 
 async def item_callback_query_handler(
@@ -104,6 +128,14 @@ async def item_callback_query_handler(
                 await callback_query.answer()
 
                 return
+
+            got_cached_rezka_data.urls = _get_proxied_view_urls(
+                direct_urls = got_cached_rezka_data.urls,
+                item_id = item_id,
+                translator_id = translator_id,
+                translator_additional_arguments = translator_additional_arguments,
+                is_film = is_film
+            )
 
             await message.edit_text(
                 text = TEXTS.enjoy.default.format(
@@ -446,6 +478,16 @@ async def item_callback_query_handler(
             await callback_query.answer()
 
             return
+
+        got_cached_rezka_data.urls = _get_proxied_view_urls(
+            direct_urls = got_cached_rezka_data.urls,
+            item_id = item_id,
+            translator_id = translator_id,
+            translator_additional_arguments = translator_additional_arguments,
+            is_film = is_film,
+            season_id = season_id,
+            episode_id = episode_id
+        )
 
         await message.edit_text(
             text = TEXTS.enjoy.default.format(

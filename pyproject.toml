@@ -19,7 +19,8 @@ dependencies = [
     "psycopg-binary (>=3.2.5,<4.0.0)",
     "psycopg-pool (>=3.2.6,<4.0.0)",
     "alembic (>=1.15.1,<2.0.0)",
-    "cachetools (>=5.5.2,<6.0.0)"
+    "cachetools (>=5.5.2,<6.0.0)",
+    "simplejson (>=3.20.1,<4.0.0)"
 ]
 
 [build-system]

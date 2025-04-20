@@ -34,6 +34,8 @@ class Config(BaseModel):
     rezka_api_key: str
     private_key_filename: str | None = Field(default=None)
     external_player_url: str | None = Field(default=None)
+    proxied_view_url: str
+    proxied_urls_secret: str
     log_filename: str
     custom_bot_api_server: str
     subscription: SubscriptionConfig

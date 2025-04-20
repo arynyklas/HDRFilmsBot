@@ -16,6 +16,8 @@ from src.handlers import ROUTERS
 from src.config import config
 
 
+REZKA_API_TIMEOUT = 20.
+
 IGNORE_EXCEPTIONS_STR_LIST = (
     "message was deleted",
     "canceled by new editmessagemedia request",
@@ -46,7 +48,8 @@ bot = Bot(
 
 
 rezka_api = RezkaAPI(
-    api_key = config.rezka_api_key
+    api_key = config.rezka_api_key,
+    timeout = REZKA_API_TIMEOUT
 )
 
 if config.rezka_api_url:
