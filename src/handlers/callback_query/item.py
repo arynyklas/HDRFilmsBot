@@ -21,7 +21,7 @@ def _get_proxied_view_urls(
 ) -> dict[str, str]:
     return {
         quality: config.proxied_view_url + "?data=" + quote(encrypt_utils.get_proxied_view_urls_params(dict(
-            item_id = item_id,
+            id = item_id,
             translator_id = translator_id,
             translator_additional_arguments = translator_additional_arguments,
             is_film = is_film,
@@ -469,6 +469,9 @@ async def item_callback_query_handler(
                 break
 
         if season_index is None or episode_index is None or not got_cached_rezka_data.urls:
+            print(f"SEASON_INDEX {season_index!r}")
+            print(f"EPISODE_INDEX {episode_index!r}")
+            print(f"GOT_CACHED_REZKA_DATA {got_cached_rezka_data!r}")
             await message.edit_text(
                 text = TEXTS.not_avaliable.default_with_translator.format(
                     translator = translator_title
